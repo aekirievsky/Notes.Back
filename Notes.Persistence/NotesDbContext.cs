@@ -20,5 +20,11 @@ namespace Notes.Persistence
             modelBuilder.ApplyConfiguration(new NoteConfiguration());
             base.OnModelCreating(modelBuilder);
         }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string dataBasePath = $"{desktopPath}/Notes.Back.db";
+            optionsBuilder.UseSqlite($"Filename = {dataBasePath}");
+        }
     }
 }
